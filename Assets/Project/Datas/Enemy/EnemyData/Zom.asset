@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c8c507e9b561846b9548fd853d2a46, type: 3}
+  m_Name: Zom
+  m_EditorClassIdentifier: 
+  _name: Zom
+  _id: 2
+  _prefab: {fileID: 4706166672446146921, guid: ff707c6a67b0d4dc3be11f7362a41263, type: 3}
+  _enemyPartParameters:
+  - _partName: UpperArmR
+    _def: 70
+    _boneName: Base HumanRArmUpperarm
+  - _partName: LowerArmR
+    _def: 70
+    _boneName: Base HumanRArmForearm
+  - _partName: HandR
+    _def: 90
+    _boneName: Base HumanRArmPalm
+  - _partName: UpperArmL
+    _def: 70
+    _boneName: Base HumanLArmUpperarm
+  - _partName: LowerArmL
+    _def: 70
+    _boneName: Base HumanLArmForearm
+  - _partName: HandL
+    _def: 90
+    _boneName: Base HumanLArmPalm
+  - _partName: Spine1
+    _def: 70
+    _boneName: Base HumanRibcage
+  - _partName: Spine
+    _def: 80
+    _boneName: Base HumanSpine1
+  - _partName: Head
+    _def: 90
+    _boneName: Base HumanHead
+  - _partName: UpperLegR
+    _def: 70
+    _boneName: Base HumanRThigh
+  - _partName: LowerLegR
+    _def: 80
+    _boneName: Base HumanRCalf
+  - _partName: FootR
+    _def: 90
+    _boneName: Base HumanRFoot
+  - _partName: UpperLegL
+    _def: 70
+    _boneName: Base HumanLLegThigh
+  - _partName: LowerLegL
+    _def: 80
+    _boneName: Base HumanLLegCalf
+  - _partName: FootL
+    _def: 90
+    _boneName: Base HumanLLegFoot

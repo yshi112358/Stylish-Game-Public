@@ -1,0 +1,316 @@
+@startuml
+namespace Player{
+    class PlayerLocomotion <<MonoBehaviour>>
+    class PlayerJump <<MonoBehaviour>>
+    class PlayerAttack <<MonoBehaviour>>{
+        -WeaponParameters _weaponParameters
+        -OnAttackEnter(float)
+        -OnAttackExit()
+    }
+    class PlayerEscape <<MonoBehaviour>>
+    class PlayerDecide <<MonoBehaviour>>
+    class PlayerClimb <<MonoBehaviour>>
+    class PlayerLook <<MonoBehaviour>>
+    note bottom: Cameraにアタッチ
+    class PlayerJudgeGround <<MonoBehaviour>>
+    class PlayerWeaponEquip <<MonoBehaviour>>{
+        +int WeaponCurrentIndex
+        +int[] WeaponEquippedList
+        +WeaponParameters WeaponParameters
+    }
+    class PlayerWeaponEffect
+    interface IInputEventProvider{
+        +ReactiveProperty<Vector2> MoveDirection
+        +ReactiveProperty<bool> JumpButton
+        +ReactiveProperty<bool> EscapeButton
+        +ReactiveProperty<bool> AttackButtonX
+        +ReactiveProperty<bool> AttackButtonY
+        +ReactiveProperty<bool> RunButton
+        +ReactiveProperty<bool> LockOnButton
+        +ReactiveCollection<bool> WeaponButton
+    }
+    class PlayerParameters <<MonoBehaviour>>{
+        +int HP
+        +int ST
+        +int MaxST
+        +float ATK
+        +float DEF
+
+        +bool superArmor
+        +bool poison
+        +bool sleep
+        +bool palalysis
+        +bool confusion
+        +bool burn
+        +Guid RootGUID
+    }
+    class PlayerStamina <<MonoBehaviour>>{
+        +ReactiveProperty<float> ST
+        +ReactiveProperty<float> MaxST
+    }
+    class PlayerLooking <<MonoBehaviour>>{
+        +ReactiveProperty<GameObject> Looking
+    }
+    class PlayerLockOn <<MonoBehaviour>>{
+        +ReactiveProperty<bool> IsLockOn
+    }
+    Enum PlayerMode{
+        Quest
+        Village
+    }
+    class PlayerAnimatorController <<Animator Controller>>{
+        +bool isGrounded
+        +Trigger Attack
+        +Trigger Jump
+        +Trigger JumpEdge
+        +Trigger Climb
+        +Trigger ClimbLand
+        +float Speed
+        +int AttackType
+        +bool RunButton
+        +float PositionUp
+        +float PositionForward
+    }
+
+    namespace InputImpls{
+        class AIInputEventProvider <<MonoBehaviour>>
+        class PlayerInputEventProvider <<MonoBehaviour>>
+        AIInputEventProvider --|> Player.IInputEventProvider
+        PlayerInputEventProvider --|>Player.IInputEventProvider
+    }
+
+    PlayerLocomotion --> PlayerAnimatorController
+    PlayerEscape --> PlayerAnimatorController
+    PlayerJump --> PlayerAnimatorController
+    PlayerAttack --> PlayerAnimatorController
+    PlayerClimb --> PlayerAnimatorController
+    PlayerJudgeGround --> PlayerAnimatorController
+
+    IInputEventProvider <-- PlayerLocomotion
+    PlayerLocomotion --> PlayerParameters
+
+    IInputEventProvider <-- PlayerJump
+    PlayerJump --> PlayerParameters
+
+    IInputEventProvider <-- PlayerEscape
+    PlayerEscape --> PlayerParameters
+
+    IInputEventProvider <-- PlayerAttack
+    IInputEventProvider <-- PlayerDecide
+    IInputEventProvider <-- PlayerWeaponEquip
+    Player.InputImpls.PlayerInputEventProvider <-- PlayerLockOn
+    Player.InputImpls.PlayerInputEventProvider <-- PlayerLook
+    PlayerLooking <-- PlayerDecide
+    PlayerLockOn --> Quest.QuestDataCurrent
+    PlayerAttack -> PlayerWeaponEquip
+    PlayerWeaponEffect --> PlayerWeaponEquip
+}
+
+namespace Damage{
+    class DamageTrigger <<MonoBehaviour>>
+    class DamageCalculate{
+        +int Calculate()
+    }
+    interface IAttackable{
+        +float ATK
+        +ReactiveProperty<bool> IsAttack
+        +List<Guid> HitGUID
+        +DamageObjectType ObjectTypeMyself
+    }
+    interface IDamageable{
+        +float DEF
+        +Guid RootGUID
+        +DamageObjectType ObjectTypeOpponent
+        +DamageAdd(int Damage)
+    }
+    enum DamageObjectType{
+        Player
+        Enemy
+    }
+    IDamageable --> DamageObjectType
+    Player.PlayerParameters -|> IDamageable
+    Enemy.EnemyPart -|> IAttackable
+    Enemy.EnemyPart -|> IDamageable
+    DamageTrigger -> DamageCalculate
+    DamageTrigger --> IAttackable
+    DamageTrigger --> IDamageable
+}
+namespace Enemy{
+    class EnemyLocomotion <<MonoBehaviour>>
+    class EnemyJump <<MonoBehaviour>>
+    class EnemyTarget <<MonoBehaviour>>
+    class EnemyAttack <<MonoBehaviour>>{
+        -OnAttackEnter(string,float)
+    }
+    class EnemyParameters <<MonoBehaviour>>{
+        +ReactiveProperty<int> HP
+        +QuestEnemyData QuestEnemyData
+        +Guid RootGUID
+        +SetEnemyData(EnemyData)
+    }
+    class EnemyList <<ScriptableObjects>>{
+        +EnemyData FindID(int)
+    }
+    class EnemyData{
+        +string Name
+        +int ID
+        +int HP
+        +int BaseATK
+        +int BaseDEF
+        +GameObject Prefab
+        +EnemyPartParameters FindEnemyPartParameters(GameObject,string)
+    }
+    class EnemyPlayerDistance <<MonoBehviour>>
+    class EnemyAnimatorController <<Animator Controller>>{
+        +float PlayerDistance
+    }
+    class EnemyPart <<MonoBehaviour>>{
+        +float ATK
+        +ReactiveProperty<bool> IsAttack
+        +List<Guid> HitGUID
+        +DamageObjectType ObjectTypeOpponent
+
+        +float DEF
+        +Guid RootGUID
+        +DamageObjectType ObjectTypeMyself
+
+        -EnemyParameters EnemyParameters
+        -EnemyPartParameters EnemyPartParameters
+    }
+    class EnemyPartParameters{
+        +float ATK
+        +ReactiveProperty<bool> IsAttack
+        +float DEF
+        +string PartName
+        +GameObject PartObj
+        +void SetATK(float)
+    }
+    EnemyPart -> EnemyParameters
+    EnemyPlayerDistance --> EnemyAnimatorController
+    EnemyList --> EnemyData
+    EnemyParameters --> Quest.QuestEnemyData
+    EnemyPart --> EnemyPartParameters
+    EnemyData --> EnemyPartParameters
+}
+
+namespace Item{
+    namespace Weapon{
+        class WeaponList <<ScriptableObjects>>{
+            +List<WeaponData> WeaponData
+        }
+        class WeaponData{
+            +string Name
+            +float ATK
+            +WeaponType WeaponType
+            +int ID
+            +GameObject Prefab
+        }
+        enum WeaponType{
+            Sword
+            Hand
+        }
+        class WeaponParameters <<MonoBehaviour>>{
+            +float ATK
+            +WeaponData WeaponData
+            +void SetWeaponData()
+        }
+        WeaponList --> WeaponData
+        WeaponData --> WeaponType
+        Player.PlayerWeaponEquip ---> WeaponList
+        Item.Weapon.WeaponParameters --> WeaponData
+        Item.Weapon.WeaponParameters ---|> Damage.IAttackable
+        Player.PlayerWeaponEquip ---> WeaponParameters
+        Player.PlayerAttack ---> Item.Weapon.WeaponParameters
+    }
+    namespace Tool{
+
+    }
+    namespace Material{
+
+    }
+    class ItemData{
+        +string Name
+        +Guid GUID
+        +ItemType ItemType
+    }
+    Enum ItemType{
+        Weapon
+        Tool
+        Material
+    }
+    ItemData --> ItemType
+    Item.Weapon.WeaponData --> ItemData
+}
+namespace Inventory{
+
+}
+namespace UI{
+    class UIDisplayQuestInfo <<MonoBehaviour>>
+    class UIDisplayQuestName <<MonoBehaviour>>
+    class UIDisplayCurrentQuestName <<MonoBehaviour>>
+    class UIDisplayLastAttack <<MonoBehaviour>>
+    class UIDisplayTimeToResult <<MonoBehaviour>>
+    class UIDiaplayClearTime <<MonoBehaviour>>
+    class UIPlayerHP <<MonoBehaviour>>
+    class UIEnemyDamage <<MonoBehaviour>>
+    class UIEnemyDamageGenerator <<MonoBehaviour>>
+    class UIPlayerSatmina <<MonoBehaviour>>
+    class UIResetSelect <<MonoBehaviour>>
+    UIPlayerHP --> Player.PlayerParameters
+    UIEnemyDamage <---- Enemy.EnemyPart
+    UIPlayerSatmina ---> Player.PlayerStamina
+    UIDisplayCurrentQuestName --> Quest.QuestDataCurrent
+    UIDiaplayClearTime --> Quest.QuestDataCurrent
+    UIEnemyDamageGenerator -> UIEnemyDamage
+}
+
+namespace Quest{
+    class QuestList <<ScriptableObjects>>{
+        +List<QuestData> QuestData
+    }
+    class QuestData{
+        +string Name
+        +int ID
+        +string MapName
+        +string Info
+        +List<QuestTarget> QuestTarget
+        +List<QuestEnemyData> QuestEnemyData
+    }
+    class QuestEnemyData{
+        +EnemyData EnemyData
+        +int HP
+        +List<Vector3> SpawnPos
+    }
+    class QuestDataCurrent <<ScriptableObjects>>{
+        +QuestData QuestData
+        +List<GameObject> EnemyList
+        +float Time
+    }
+    class QuestTarget{
+        +EnemyData TargetEnemy
+        +int Number
+    }
+    QuestList --> QuestData
+    QuestData --> QuestEnemyData
+    QuestData --> QuestTarget
+    QuestEnemyData ----> Enemy.EnemyData
+    QuestDataCurrent --> QuestData
+    UI.UIDisplayQuestInfo --> QuestData
+    UI.UIDIsplayQuestName --> QuestData
+}
+namespace Manager{
+    class SceneTransitionManager{
+        +void SceneTransition(string)
+    }
+    class QuestManager{
+        +SceneTransitionManager SceneTransitionManager
+        +QuestList QuestList
+        +QuestDataCurrent QuestDataCurrent
+        -void EnemySpawn()
+        -void PlayerSpawn()
+    }
+    QuestManager --> SceneTransitionManager
+    QuestManager --> Quest.QuestList
+    QuestManager --> Quest.QuestDataCurrent
+}
+@enduml

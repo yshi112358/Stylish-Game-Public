@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b853ac67a5a5bf408a95f721a98e8e4, type: 3}
+  m_Name: TutorialQuest
+  m_EditorClassIdentifier: 
+  _name: TutorialQuest
+  _iD: 0
+  _mapName: Tutorial
+  _info: 
+  _playerPosition: {x: 0, y: 0, z: 0}
+  _questTarget:
+  - _targetEnemy: {fileID: 11400000, guid: cbe2deb0088574ce49d1dd8b61e2a8bd, type: 2}
+    _number: 1
+  - _targetEnemy: {fileID: 11400000, guid: e6513e4bad3fdf24c916d639c416b0ed, type: 2}
+    _number: 1
+  _image: {fileID: 0}
+  _questEnemyData:
+  - _enemyData: {fileID: 11400000, guid: e6513e4bad3fdf24c916d639c416b0ed, type: 2}
+    _hp: 1000
+    _spawnPos:
+    - {x: -3, y: 2, z: 5}
+    - {x: 1, y: 1, z: 1}
+  - _enemyData: {fileID: 11400000, guid: cbe2deb0088574ce49d1dd8b61e2a8bd, type: 2}
+    _hp: 10
+    _spawnPos:
+    - {x: 5, y: 2, z: 10}
+  - _enemyData: {fileID: 11400000, guid: 1aaf2d1d3b661694888834900ed94e0a, type: 2}
+    _hp: 10
+    _spawnPos:
+    - {x: 5, y: 2, z: 10}
+  - _enemyData: {fileID: 11400000, guid: b1179602e05e445628007eecde929d52, type: 2}
+    _hp: 10
+    _spawnPos:
+    - {x: 5, y: 2, z: 10}

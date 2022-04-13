@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c8c507e9b561846b9548fd853d2a46, type: 3}
+  m_Name: Tamt
+  m_EditorClassIdentifier: 
+  _name: Tamt
+  _id: 1
+  _prefab: {fileID: 5730736957119741979, guid: 895ccf6ca4e312c41b6b938931519924, type: 3}
+  _enemyPartParameters:
+  - _partName: Head
+    _def: 80
+    _boneName: Mutant:Head
+  - _partName: UpperArmR
+    _def: 60
+    _boneName: Mutant:RightArm
+  - _partName: LowerArmR
+    _def: 40
+    _boneName: Mutant:RightForeArm
+  - _partName: Spine2
+    _def: 60
+    _boneName: Mutant:Spine2
+  - _partName: Spine
+    _def: 70
+    _boneName: Mutant:Spine
+  - _partName: UpperArmL
+    _def: 60
+    _boneName: Mutant:LeftArm
+  - _partName: LowerArmL
+    _def: 40
+    _boneName: Mutant:LeftForeArm
+  - _partName: Claw
+    _def: 30
+    _boneName: Claw
+  - _partName: UpperLegR
+    _def: 60
+    _boneName: Mutant:RightUpLeg
+  - _partName: LowerLegR
+    _def: 70
+    _boneName: Mutant:RightLeg
+  - _partName: FootR
+    _def: 80
+    _boneName: Mutant:RightFoot
+  - _partName: UpperLegL
+    _def: 60
+    _boneName: Mutant:LeftUpLeg
+  - _partName: LowerLegL
+    _def: 70
+    _boneName: Mutant:LeftLeg
+  - _partName: FootL
+    _def: 80
+    _boneName: Mutant:LeftFoot

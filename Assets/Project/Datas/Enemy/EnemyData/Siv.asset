@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c8c507e9b561846b9548fd853d2a46, type: 3}
+  m_Name: Siv
+  m_EditorClassIdentifier: 
+  _name: Siv
+  _id: 3
+  _prefab: {fileID: 6654579216523652150, guid: a6d0cb04eb8704f9b907200af6f3973f, type: 3}
+  _enemyPartParameters:
+  - _partName: UpperLegL
+    _def: 70
+    _boneName: LeftUpLeg
+  - _partName: LowerLegL
+    _def: 70
+    _boneName: LeftLeg
+  - _partName: FootL
+    _def: 80
+    _boneName: LeftFoot
+  - _partName: UpperLegR
+    _def: 70
+    _boneName: RightUpLeg
+  - _partName: LowerLegR
+    _def: 70
+    _boneName: RightLeg
+  - _partName: FootR
+    _def: 80
+    _boneName: RightFoot
+  - _partName: Spine
+    _def: 60
+    _boneName: Spine
+  - _partName: Spine2
+    _def: 60
+    _boneName: Spine2
+  - _partName: UpperArmL
+    _def: 70
+    _boneName: LeftArm
+  - _partName: LowerArmL
+    _def: 70
+    _boneName: LeftForeArm
+  - _partName: HandL
+    _def: 80
+    _boneName: LeftHand
+  - _partName: Head
+    _def: 90
+    _boneName: Head
+  - _partName: UpperArmR
+    _def: 70
+    _boneName: RightArm
+  - _partName: LowerArmR
+    _def: 70
+    _boneName: RightForeArm
+  - _partName: HandR
+    _def: 80
+    _boneName: RightHand
